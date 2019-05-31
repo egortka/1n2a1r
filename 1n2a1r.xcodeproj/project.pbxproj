@@ -11,6 +11,12 @@
 		5113F69522A05E85000A431A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5113F69422A05E85000A431A /* Assets.xcassets */; };
 		5113F6A522A060C0000A431A /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5113F6A422A060C0000A431A /* MainViewController.swift */; };
 		5113F6A722A06522000A431A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5113F6A622A06522000A431A /* GoogleService-Info.plist */; };
+		5113F6AD22A06773000A431A /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5113F6AB22A06773000A431A /* LoginViewController.swift */; };
+		5113F6AE22A06773000A431A /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5113F6AC22A06773000A431A /* SignUpViewController.swift */; };
+		5113F6B122A067C6000A431A /* Extansions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5113F6B022A067C6000A431A /* Extansions.swift */; };
+		5113F6B322A06834000A431A /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5113F6B222A06834000A431A /* Constants.swift */; };
+		5113F6B522A06D16000A431A /* DummyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5113F6B422A06D16000A431A /* DummyViewController.swift */; };
+		5113F6B922A06FEB000A431A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5113F6B822A06FEB000A431A /* Main.storyboard */; };
 		67BAC660A837047E6EDF412C /* Pods_1n2a1r.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EF898B55DF784393966B1EE /* Pods_1n2a1r.framework */; };
 /* End PBXBuildFile section */
 
@@ -21,6 +27,12 @@
 		5113F69922A05E85000A431A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5113F6A422A060C0000A431A /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		5113F6A622A06522000A431A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
+		5113F6AB22A06773000A431A /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		5113F6AC22A06773000A431A /* SignUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
+		5113F6B022A067C6000A431A /* Extansions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extansions.swift; sourceTree = "<group>"; };
+		5113F6B222A06834000A431A /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		5113F6B422A06D16000A431A /* DummyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyViewController.swift; sourceTree = "<group>"; };
+		5113F6B822A06FEB000A431A /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Main.storyboard; path = ../Main.storyboard; sourceTree = "<group>"; };
 		566F4DE7BE9C80125C3A4AB1 /* Pods-1n2a1r.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-1n2a1r.release.xcconfig"; path = "Target Support Files/Pods-1n2a1r/Pods-1n2a1r.release.xcconfig"; sourceTree = "<group>"; };
 		6EF898B55DF784393966B1EE /* Pods_1n2a1r.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_1n2a1r.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB6B9B207B893760DA6BC816 /* Pods-1n2a1r.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-1n2a1r.debug.xcconfig"; path = "Target Support Files/Pods-1n2a1r/Pods-1n2a1r.debug.xcconfig"; sourceTree = "<group>"; };
@@ -59,6 +71,7 @@
 		5113F68C22A05E83000A431A /* 1n2a1r */ = {
 			isa = PBXGroup;
 			children = (
+				5113F6AF22A06797000A431A /* Utils */,
 				5113F6A122A05F7C000A431A /* Controller */,
 				5113F6A022A05F77000A431A /* View */,
 				5113F69F22A05F6C000A431A /* Model */,
@@ -66,6 +79,7 @@
 				5113F69422A05E85000A431A /* Assets.xcassets */,
 				5113F69922A05E85000A431A /* Info.plist */,
 				5113F6A622A06522000A431A /* GoogleService-Info.plist */,
+				5113F6B822A06FEB000A431A /* Main.storyboard */,
 			);
 			path = 1n2a1r;
 			sourceTree = "<group>";
@@ -87,9 +101,29 @@
 		5113F6A122A05F7C000A431A /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				5113F6AA22A0675C000A431A /* Login */,
 				5113F6A422A060C0000A431A /* MainViewController.swift */,
+				5113F6B422A06D16000A431A /* DummyViewController.swift */,
 			);
 			path = Controller;
+			sourceTree = "<group>";
+		};
+		5113F6AA22A0675C000A431A /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				5113F6AB22A06773000A431A /* LoginViewController.swift */,
+				5113F6AC22A06773000A431A /* SignUpViewController.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		5113F6AF22A06797000A431A /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				5113F6B222A06834000A431A /* Constants.swift */,
+				5113F6B022A067C6000A431A /* Extansions.swift */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 		59343662FD82D63AC3D2D0AF /* Frameworks */ = {
@@ -169,6 +203,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5113F6B922A06FEB000A431A /* Main.storyboard in Resources */,
 				5113F69522A05E85000A431A /* Assets.xcassets in Resources */,
 				5113F6A722A06522000A431A /* GoogleService-Info.plist in Resources */,
 			);
@@ -232,8 +267,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5113F6B522A06D16000A431A /* DummyViewController.swift in Sources */,
+				5113F6AD22A06773000A431A /* LoginViewController.swift in Sources */,
 				5113F68E22A05E83000A431A /* AppDelegate.swift in Sources */,
+				5113F6AE22A06773000A431A /* SignUpViewController.swift in Sources */,
 				5113F6A522A060C0000A431A /* MainViewController.swift in Sources */,
+				5113F6B122A067C6000A431A /* Extansions.swift in Sources */,
+				5113F6B322A06834000A431A /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
