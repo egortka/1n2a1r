@@ -2,7 +2,7 @@
 //  SignUpViewController.swift
 //  1n2a1r
 //
-//  Created by Egor Tkachenko on 12/03/2019.
+//  Created by Egor Tkachenko on 31/05/2019.
 //  Copyright © 2019 ET. All rights reserved.
 //
 
@@ -202,12 +202,12 @@ class SignUpViewController: UIViewController, UIImagePickerControllerDelegate, U
             passwordTextField.hasText,
             imageSelected else {
                 signupButton.isEnabled = false
-                signupButton.backgroundColor = #colorLiteral(red: 0.5843137255, green: 0.8, blue: 0.9568627451, alpha: 1)
+                signupButton.backgroundColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
                 return
         }
         
         signupButton.isEnabled = true
-        signupButton.backgroundColor = #colorLiteral(red: 0.06666666667, green: 0.6039215686, blue: 0.9294117647, alpha: 1)
+        signupButton.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
     }
     
     func configureViewComponents() {

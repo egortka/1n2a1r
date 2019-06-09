@@ -20,4 +20,8 @@ let STORAGE_PROFILE_IMAGES_REF = STORAGE_REF.child("profile_images")
 //MARK: - Database References
 
 let USERS_REF = DB_REF.child("users")
+let MESSAGES_REF = DB_REF.child("Messages")
 
+//MARK: - Sources References
+
+let STREAM_REF = "http://1n2a1r.com:8000/m3s"

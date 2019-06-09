@@ -17,6 +17,14 @@
 		5113F6B322A06834000A431A /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5113F6B222A06834000A431A /* Constants.swift */; };
 		5113F6B522A06D16000A431A /* DummyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5113F6B422A06D16000A431A /* DummyViewController.swift */; };
 		5113F6B922A06FEB000A431A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5113F6B822A06FEB000A431A /* Main.storyboard */; };
+		5124441422A14DFB0021A6D3 /* ChatVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5124441322A14DFB0021A6D3 /* ChatVC.swift */; };
+		5124441622A14E180021A6D3 /* StreamVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5124441522A14E180021A6D3 /* StreamVC.swift */; };
+		5124441822A14E2A0021A6D3 /* PlayerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5124441722A14E2A0021A6D3 /* PlayerVC.swift */; };
+		5124441A22A163720021A6D3 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5124441922A163720021A6D3 /* Message.swift */; };
+		5124441C22A163CC0021A6D3 /* MessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5124441B22A163CC0021A6D3 /* MessageCell.swift */; };
+		5124441E22A164A70021A6D3 /* CustomImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5124441D22A164A70021A6D3 /* CustomImageView.swift */; };
+		5124442022A165030021A6D3 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5124441F22A165030021A6D3 /* User.swift */; };
+		5136275D22A1AEAD0092B5C1 /* MobileVLCKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 513A427C22A1A568009BFA26 /* MobileVLCKit.framework */; };
 		67BAC660A837047E6EDF412C /* Pods_1n2a1r.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EF898B55DF784393966B1EE /* Pods_1n2a1r.framework */; };
 /* End PBXBuildFile section */
 
@@ -33,6 +41,15 @@
 		5113F6B222A06834000A431A /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		5113F6B422A06D16000A431A /* DummyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyViewController.swift; sourceTree = "<group>"; };
 		5113F6B822A06FEB000A431A /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Main.storyboard; path = ../Main.storyboard; sourceTree = "<group>"; };
+		5124441322A14DFB0021A6D3 /* ChatVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatVC.swift; sourceTree = "<group>"; };
+		5124441522A14E180021A6D3 /* StreamVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreamVC.swift; sourceTree = "<group>"; };
+		5124441722A14E2A0021A6D3 /* PlayerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerVC.swift; sourceTree = "<group>"; };
+		5124441922A163720021A6D3 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
+		5124441B22A163CC0021A6D3 /* MessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageCell.swift; sourceTree = "<group>"; };
+		5124441D22A164A70021A6D3 /* CustomImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomImageView.swift; sourceTree = "<group>"; };
+		5124441F22A165030021A6D3 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		5136275A22A1ACA60092B5C1 /* 1n2a1r-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "1n2a1r-Bridging-Header.h"; sourceTree = "<group>"; };
+		513A427C22A1A568009BFA26 /* MobileVLCKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileVLCKit.framework; path = Pods/MobileVLCKit/MobileVLCKit.framework; sourceTree = "<group>"; };
 		566F4DE7BE9C80125C3A4AB1 /* Pods-1n2a1r.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-1n2a1r.release.xcconfig"; path = "Target Support Files/Pods-1n2a1r/Pods-1n2a1r.release.xcconfig"; sourceTree = "<group>"; };
 		6EF898B55DF784393966B1EE /* Pods_1n2a1r.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_1n2a1r.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB6B9B207B893760DA6BC816 /* Pods-1n2a1r.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-1n2a1r.debug.xcconfig"; path = "Target Support Files/Pods-1n2a1r/Pods-1n2a1r.debug.xcconfig"; sourceTree = "<group>"; };
@@ -43,6 +60,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5136275D22A1AEAD0092B5C1 /* MobileVLCKit.framework in Frameworks */,
 				67BAC660A837047E6EDF412C /* Pods_1n2a1r.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -71,6 +89,7 @@
 		5113F68C22A05E83000A431A /* 1n2a1r */ = {
 			isa = PBXGroup;
 			children = (
+				513A427A22A1A326009BFA26 /* Supporting Files */,
 				5113F6AF22A06797000A431A /* Utils */,
 				5113F6A122A05F7C000A431A /* Controller */,
 				5113F6A022A05F77000A431A /* View */,
@@ -87,6 +106,8 @@
 		5113F69F22A05F6C000A431A /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				5124441F22A165030021A6D3 /* User.swift */,
+				5124441922A163720021A6D3 /* Message.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -94,6 +115,7 @@
 		5113F6A022A05F77000A431A /* View */ = {
 			isa = PBXGroup;
 			children = (
+				5124441B22A163CC0021A6D3 /* MessageCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -104,6 +126,9 @@
 				5113F6AA22A0675C000A431A /* Login */,
 				5113F6A422A060C0000A431A /* MainViewController.swift */,
 				5113F6B422A06D16000A431A /* DummyViewController.swift */,
+				5124441322A14DFB0021A6D3 /* ChatVC.swift */,
+				5124441522A14E180021A6D3 /* StreamVC.swift */,
+				5124441722A14E2A0021A6D3 /* PlayerVC.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -120,15 +145,25 @@
 		5113F6AF22A06797000A431A /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				5124441D22A164A70021A6D3 /* CustomImageView.swift */,
 				5113F6B222A06834000A431A /* Constants.swift */,
 				5113F6B022A067C6000A431A /* Extansions.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
 		};
+		513A427A22A1A326009BFA26 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				5136275A22A1ACA60092B5C1 /* 1n2a1r-Bridging-Header.h */,
+			);
+			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
 		59343662FD82D63AC3D2D0AF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				513A427C22A1A568009BFA26 /* MobileVLCKit.framework */,
 				6EF898B55DF784393966B1EE /* Pods_1n2a1r.framework */,
 			);
 			name = Frameworks;
@@ -177,6 +212,7 @@
 				TargetAttributes = {
 					5113F68922A05E83000A431A = {
 						CreatedOnToolsVersion = 10.1;
+						LastSwiftMigration = 1010;
 					};
 				};
 			};
@@ -267,13 +303,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5124441422A14DFB0021A6D3 /* ChatVC.swift in Sources */,
 				5113F6B522A06D16000A431A /* DummyViewController.swift in Sources */,
+				5124441622A14E180021A6D3 /* StreamVC.swift in Sources */,
 				5113F6AD22A06773000A431A /* LoginViewController.swift in Sources */,
 				5113F68E22A05E83000A431A /* AppDelegate.swift in Sources */,
 				5113F6AE22A06773000A431A /* SignUpViewController.swift in Sources */,
+				5124442022A165030021A6D3 /* User.swift in Sources */,
+				5124441A22A163720021A6D3 /* Message.swift in Sources */,
 				5113F6A522A060C0000A431A /* MainViewController.swift in Sources */,
 				5113F6B122A067C6000A431A /* Extansions.swift in Sources */,
 				5113F6B322A06834000A431A /* Constants.swift in Sources */,
+				5124441822A14E2A0021A6D3 /* PlayerVC.swift in Sources */,
+				5124441C22A163CC0021A6D3 /* MessageCell.swift in Sources */,
+				5124441E22A164A70021A6D3 /* CustomImageView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -401,8 +444,14 @@
 			baseConfigurationReference = BB6B9B207B893760DA6BC816 /* Pods-1n2a1r.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 4YBD8B784H;
+				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Pods/MobileVLCKit",
+				);
 				INFOPLIST_FILE = 1n2a1r/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -411,6 +460,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.egortka.-n2a1r";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "1n2a1r/Supporting Files/1n2a1r-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -421,8 +472,14 @@
 			baseConfigurationReference = 566F4DE7BE9C80125C3A4AB1 /* Pods-1n2a1r.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 4YBD8B784H;
+				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Pods/MobileVLCKit",
+				);
 				INFOPLIST_FILE = 1n2a1r/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -431,6 +488,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.egortka.-n2a1r";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "1n2a1r/Supporting Files/1n2a1r-Bridging-Header.h";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

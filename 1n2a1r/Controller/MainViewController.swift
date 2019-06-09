@@ -9,13 +9,14 @@
 import UIKit
 import Firebase
 
-class MainViewController: UITabBarController {
+class MainViewController: UITabBarController, UITabBarControllerDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.delegate = self
+        
         view.backgroundColor = UIColor.white
-        self.title = "Downloads"
         
         view.backgroundColor = UIColor.white
         
@@ -29,16 +30,16 @@ class MainViewController: UITabBarController {
     func configureViewControllers() {
         
         // home feed controller
-        let feedViewController = constructNavigationController(unselectedImage: #imageLiteral(resourceName: "logo_black"), selectedImage: #imageLiteral(resourceName: "logo_black"), rootViewController:  DummyViewController())
+        let playerVC = constructNavigationController(unselectedImage: #imageLiteral(resourceName: "player"), selectedImage: #imageLiteral(resourceName: "selectedPlayer"), rootViewController:  PlayerVC())
         
         // search feed controller
-        let searchViewController = constructNavigationController(unselectedImage: #imageLiteral(resourceName: "logo_black"), selectedImage: #imageLiteral(resourceName: "logo_black"), rootViewController: DummyViewController())
+        let streamVC = constructNavigationController(unselectedImage: #imageLiteral(resourceName: "stream"), selectedImage: #imageLiteral(resourceName: "selectedStream"), rootViewController: StreamVC())
         
         // search feed controller
-        let searchViewController2 = constructNavigationController(unselectedImage: #imageLiteral(resourceName: "logo_black"), selectedImage: #imageLiteral(resourceName: "logo_black"), rootViewController: DummyViewController())
+        let chatVC = constructNavigationController(unselectedImage: #imageLiteral(resourceName: "chat"), selectedImage: #imageLiteral(resourceName: "selectedChat"))
         
         // view controllers to be added to tab controller
-        viewControllers = [feedViewController, searchViewController, searchViewController2]
+        viewControllers = [playerVC, streamVC, chatVC]
         tabBar.tintColor = .black
         
     }
@@ -50,8 +51,26 @@ class MainViewController: UITabBarController {
         navigationController.tabBarItem.image = unselectedImage
         navigationController.tabBarItem.selectedImage = selectedImage
         navigationController.navigationBar.tintColor = .black
+        navigationController.tabBarItem.imageInsets = UIEdgeInsets(top: 10, left: 0, bottom: -10, right: 0)
+        
         
         return navigationController
+    }
+    
+    func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
+        let index = viewControllers?.firstIndex(of: viewController)
+        
+        if index == 2 {
+            
+            let selectImageViewController = ChatVC(collectionViewLayout: UICollectionViewFlowLayout())
+            let navigationController = UINavigationController(rootViewController: selectImageViewController)
+            navigationController.navigationBar.tintColor = .black
+            present(navigationController, animated: true, completion: nil)
+            
+            return false
+        }
+        
+        return true
     }
     
     func checkUserIsLoggedIn() {
@@ -65,5 +84,4 @@ class MainViewController: UITabBarController {
         }
         
     }
-
 }
