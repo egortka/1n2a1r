@@ -15,8 +15,10 @@
 		5113F6AE22A06773000A431A /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5113F6AC22A06773000A431A /* SignUpViewController.swift */; };
 		5113F6B122A067C6000A431A /* Extansions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5113F6B022A067C6000A431A /* Extansions.swift */; };
 		5113F6B322A06834000A431A /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5113F6B222A06834000A431A /* Constants.swift */; };
-		5113F6B522A06D16000A431A /* DummyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5113F6B422A06D16000A431A /* DummyViewController.swift */; };
 		5113F6B922A06FEB000A431A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5113F6B822A06FEB000A431A /* Main.storyboard */; };
+		511FF74D22AD89A4004BCD3B /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511FF74C22AD89A4004BCD3B /* Player.swift */; };
+		511FF75122AD8BBE004BCD3B /* Track.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511FF75022AD8BBE004BCD3B /* Track.swift */; };
+		511FF75322AD8FAF004BCD3B /* Playlist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511FF75222AD8FAF004BCD3B /* Playlist.swift */; };
 		5124441422A14DFB0021A6D3 /* ChatVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5124441322A14DFB0021A6D3 /* ChatVC.swift */; };
 		5124441622A14E180021A6D3 /* StreamVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5124441522A14E180021A6D3 /* StreamVC.swift */; };
 		5124441822A14E2A0021A6D3 /* PlayerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5124441722A14E2A0021A6D3 /* PlayerVC.swift */; };
@@ -39,8 +41,10 @@
 		5113F6AC22A06773000A431A /* SignUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		5113F6B022A067C6000A431A /* Extansions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extansions.swift; sourceTree = "<group>"; };
 		5113F6B222A06834000A431A /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
-		5113F6B422A06D16000A431A /* DummyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyViewController.swift; sourceTree = "<group>"; };
 		5113F6B822A06FEB000A431A /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Main.storyboard; path = ../Main.storyboard; sourceTree = "<group>"; };
+		511FF74C22AD89A4004BCD3B /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
+		511FF75022AD8BBE004BCD3B /* Track.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Track.swift; sourceTree = "<group>"; };
+		511FF75222AD8FAF004BCD3B /* Playlist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Playlist.swift; sourceTree = "<group>"; };
 		5124441322A14DFB0021A6D3 /* ChatVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatVC.swift; sourceTree = "<group>"; };
 		5124441522A14E180021A6D3 /* StreamVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreamVC.swift; sourceTree = "<group>"; };
 		5124441722A14E2A0021A6D3 /* PlayerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerVC.swift; sourceTree = "<group>"; };
@@ -108,6 +112,9 @@
 			children = (
 				5124441F22A165030021A6D3 /* User.swift */,
 				5124441922A163720021A6D3 /* Message.swift */,
+				511FF74C22AD89A4004BCD3B /* Player.swift */,
+				511FF75022AD8BBE004BCD3B /* Track.swift */,
+				511FF75222AD8FAF004BCD3B /* Playlist.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -125,7 +132,6 @@
 			children = (
 				5113F6AA22A0675C000A431A /* Login */,
 				5113F6A422A060C0000A431A /* MainViewController.swift */,
-				5113F6B422A06D16000A431A /* DummyViewController.swift */,
 				5124441322A14DFB0021A6D3 /* ChatVC.swift */,
 				5124441522A14E180021A6D3 /* StreamVC.swift */,
 				5124441722A14E2A0021A6D3 /* PlayerVC.swift */,
@@ -279,6 +285,7 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-1n2a1r/Pods-1n2a1r-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
@@ -287,6 +294,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
@@ -304,7 +312,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5124441422A14DFB0021A6D3 /* ChatVC.swift in Sources */,
-				5113F6B522A06D16000A431A /* DummyViewController.swift in Sources */,
+				511FF75322AD8FAF004BCD3B /* Playlist.swift in Sources */,
 				5124441622A14E180021A6D3 /* StreamVC.swift in Sources */,
 				5113F6AD22A06773000A431A /* LoginViewController.swift in Sources */,
 				5113F68E22A05E83000A431A /* AppDelegate.swift in Sources */,
@@ -314,8 +322,10 @@
 				5113F6A522A060C0000A431A /* MainViewController.swift in Sources */,
 				5113F6B122A067C6000A431A /* Extansions.swift in Sources */,
 				5113F6B322A06834000A431A /* Constants.swift in Sources */,
+				511FF75122AD8BBE004BCD3B /* Track.swift in Sources */,
 				5124441822A14E2A0021A6D3 /* PlayerVC.swift in Sources */,
 				5124441C22A163CC0021A6D3 /* MessageCell.swift in Sources */,
+				511FF74D22AD89A4004BCD3B /* Player.swift in Sources */,
 				5124441E22A164A70021A6D3 /* CustomImageView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

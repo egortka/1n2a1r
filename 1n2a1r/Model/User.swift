@@ -32,6 +32,4 @@ class User {
         
     }
     
-    //MARK: - Methods
-    
 }

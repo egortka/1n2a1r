@@ -11,6 +11,8 @@ import Firebase
 
 class MainViewController: UITabBarController, UITabBarControllerDelegate {
 
+    let player = Player(with: Playlist(with: PLAYLIST_REF))
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -19,10 +21,11 @@ class MainViewController: UITabBarController, UITabBarControllerDelegate {
         view.backgroundColor = UIColor.white
         
         view.backgroundColor = UIColor.white
-        
+       
         configureViewControllers()
         
         checkUserIsLoggedIn()
+        
     }
     
     
@@ -30,7 +33,7 @@ class MainViewController: UITabBarController, UITabBarControllerDelegate {
     func configureViewControllers() {
         
         // home feed controller
-        let playerVC = constructNavigationController(unselectedImage: #imageLiteral(resourceName: "player"), selectedImage: #imageLiteral(resourceName: "selectedPlayer"), rootViewController:  PlayerVC())
+        let playerVC = constructNavigationController(unselectedImage: #imageLiteral(resourceName: "player"), selectedImage: #imageLiteral(resourceName: "selectedPlayer"), rootViewController:  PlayerVC(with: self.player))
         
         // search feed controller
         let streamVC = constructNavigationController(unselectedImage: #imageLiteral(resourceName: "stream"), selectedImage: #imageLiteral(resourceName: "selectedStream"), rootViewController: StreamVC())
