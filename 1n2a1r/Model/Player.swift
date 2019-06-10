@@ -10,18 +10,20 @@ class Player {
     
     // MARK: - Properties
     let player = VLCMediaPlayer()
-    var playList: Playlist
+    var playlist: Playlist
     
     // MARK: - Init
     
-    init(with playList: Playlist) {
+    init(with playlist: Playlist) {
         
-        self.playList = playList
+        self.playlist = playlist
+        self.player.media = VLCMedia(url: playlist.getTrack(number: 0).url)
     }
     
     //MARK: - Handlers
     
     func play() {
+        player.play()
     }
     
     func back() {

@@ -25,4 +25,5 @@ let MESSAGES_REF = DB_REF.child("Messages")
 //MARK: - Sources References
 
 let STREAM_REF = "http://1n2a1r.com:8000/m3s"
-let PLAYLIST_REF = "http://1n2a1r.com/audio/m3s/playlist"
+let LIBRARY_REF = "http://1n2a1r.com/audio/m3s/"
+let PLAYLIST_REF = LIBRARY_REF + "playlist"

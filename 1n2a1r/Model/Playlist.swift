@@ -13,19 +13,28 @@ class Playlist {
     
     // MARK: - Properties
     
-    private var  playlist: [Track]
+    private var  playlist: [Track]?
     
     // MARK: - Init
     
     init(with urlString: String) {
         
         self.playlist = [Track]()
-        
         fetchPlaylistStrings(for: urlString) { playlistStrings in
             for item in playlistStrings {
-                let track = Track(with: item)
-                self.playlist.append(track)
+                
+                let trackName = item
+                let trackUrlString = LIBRARY_REF + trackName
+                let encodedUrlString = trackUrlString.addingPercentEncoding(withAllowedCharacters: CharacterSet(charactersIn: " ").inverted)
+                guard let trackUrl = URL(string: encodedUrlString!) else {
+                        print("Failed obtain encoded url string!")
+                        return
+                }
+                
+                let track = Track(trackName: trackName, trackUrl: trackUrl)
+                self.playlist?.append(track)
             }
+            
         }
     }
     
@@ -45,6 +54,10 @@ class Playlist {
                     print("Failed to get playlist!")
                 }
         }
+    }
+    
+    func getTrack(number: Int) -> Track {
+            return self.playlist[number]
     }
     
     

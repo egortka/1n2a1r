@@ -12,13 +12,14 @@ class Track {
     
     // MARK: - Properties
     
-    var title = ""
-    var duration = 0.0
+    var title: String
+    var url: URL
 
     // MARK: - Init
     
-    init(with title: String) {
+    init(trackName: String, trackUrl: URL) {
         
-        self.title = title
+        self.title = trackName
+        self.url = trackUrl
     }
 }
