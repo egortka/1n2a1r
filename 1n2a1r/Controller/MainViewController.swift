@@ -11,7 +11,7 @@ import Firebase
 
 class MainViewController: UITabBarController, UITabBarControllerDelegate {
 
-    let player = Player(with: Playlist(with: PLAYLIST_REF))
+    let player = Player()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,8 +24,6 @@ class MainViewController: UITabBarController, UITabBarControllerDelegate {
        
         configureViewControllers()
         
-        checkUserIsLoggedIn()
-        
     }
     
     
@@ -33,7 +31,7 @@ class MainViewController: UITabBarController, UITabBarControllerDelegate {
     func configureViewControllers() {
         
         // home feed controller
-        let playerVC = constructNavigationController(unselectedImage: #imageLiteral(resourceName: "player"), selectedImage: #imageLiteral(resourceName: "selectedPlayer"), rootViewController:  PlayerVC(with: self.player))
+        let playerVC = constructNavigationController(unselectedImage: #imageLiteral(resourceName: "player"), selectedImage: #imageLiteral(resourceName: "selectedPlayer"), rootViewController:  PlayerVC(player: self.player))
         
         // search feed controller
         let streamVC = constructNavigationController(unselectedImage: #imageLiteral(resourceName: "stream"), selectedImage: #imageLiteral(resourceName: "selectedStream"), rootViewController: StreamVC())
@@ -74,17 +72,5 @@ class MainViewController: UITabBarController, UITabBarControllerDelegate {
         }
         
         return true
-    }
-    
-    func checkUserIsLoggedIn() {
-        
-        if Auth.auth().currentUser == nil {
-            DispatchQueue.main.async {
-                // present log in screen
-                let navigationController = UINavigationController(rootViewController: LoginViewController())
-                self.present(navigationController, animated: true, completion: nil)
-            }
-        }
-        
     }
 }

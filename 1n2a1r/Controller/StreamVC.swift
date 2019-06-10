@@ -29,7 +29,6 @@ class StreamVC: UIViewController, VLCMediaPlayerDelegate {
         
         view.backgroundColor = UIColor.white
         self.navigationItem.title = "Test stream"
-        configureNavigationBar()
         
         mediaPlayer.delegate = self
         let url = STREAM_REF
@@ -41,11 +40,6 @@ class StreamVC: UIViewController, VLCMediaPlayerDelegate {
     }
     
     //MARK: - handlers
-    func configureNavigationBar() {
-        
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(handleLogout))
-    }
-    
     @objc func handlePlayButton() {
         if isPlaing {
             mediaPlayer.stop()
@@ -54,33 +48,6 @@ class StreamVC: UIViewController, VLCMediaPlayerDelegate {
             mediaPlayer.play()
             isPlaing = true
         }
-        
-    }
-    
-    
-    @objc func handleLogout() {
-        
-        // configure alert controller
-        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        alertController.addAction(UIAlertAction(title: "Logout", style: .destructive, handler: { (_) in
-            
-            do {
-                // log out user
-                try Auth.auth().signOut()
-                
-                // present log in screen
-                let navigationController = UINavigationController(rootViewController: LoginViewController())
-                self.present(navigationController, animated: true, completion: nil)
-                
-                print("Successfully logged out user")
-                
-            } catch {
-                print("Failed to sign out")
-            }
-        }))
-        alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-        
-        present(alertController, animated: true, completion: nil)
         
     }
 }

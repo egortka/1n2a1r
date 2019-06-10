@@ -87,3 +87,21 @@ extension UICollectionView {
         scrollToItem(at: lastItemIndexPath, at: .bottom, animated: true)
     }
 }
+
+extension Int {
+  
+    static func mod(_ a: Int, _ n: Int) -> Int {
+        precondition(n > 0, "modulus must be positive")
+        let r = a % n
+        return r >= 0 ? r : r + n
+    }
+}
+
+extension VLCTime {
+    
+    static func getString(seconds: Int32) -> String {
+        let time = VLCTime.init(int: seconds * 1000)
+        return time?.stringValue ?? "00:00"
+    }
+}
+

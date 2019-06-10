@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+import Alamofire
 
 class PlayerVC: UIViewController, VLCMediaPlayerDelegate {
 
@@ -39,7 +40,9 @@ class PlayerVC: UIViewController, VLCMediaPlayerDelegate {
     
     let trackNameLabel: UILabel = {
         let label = UILabel()
-        label.text = "Turbo mix 3000"
+        label.numberOfLines = 0
+        label.textAlignment = .center
+        label.text = ""
         label.font = UIFont.boldSystemFont(ofSize: 20)
         return label
     }()
@@ -50,31 +53,33 @@ class PlayerVC: UIViewController, VLCMediaPlayerDelegate {
         slider.minimumTrackTintColor = UIColor.gray
         slider.maximumTrackTintColor = UIColor.gray
         slider.thumbTintColor = .black
-        slider.maximumValue = 100
         slider.minimumValue = 0
+        slider.maximumValue = 1
         slider.setValue(0, animated: true)
         slider.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
+        
+        slider.addTarget(self, action: #selector(progressBarValueDidChange),for: .valueChanged)
 
         return slider
     }()
     
-    let startTimeLabel: UILabel = {
+    let playingTimeLabel: UILabel = {
         let label = UILabel()
-        label.text = "2:22"
+        label.text = "-:-"
         label.font = UIFont.boldSystemFont(ofSize: 12)
         return label
     }()
     
-    let endTimeLabel: UILabel = {
+    let remainingTimeLabel: UILabel = {
         let label = UILabel()
-        label.text = "1:22"
+        label.text = "-:-"
         label.font = UIFont.boldSystemFont(ofSize: 12)
         return label
     }()
     
     //MARK: - init
     
-    init(with player: Player) {
+    init(player: Player) {
         
         self.player = player
         super.init(nibName: nil, bundle: nil)
@@ -90,10 +95,63 @@ class PlayerVC: UIViewController, VLCMediaPlayerDelegate {
         view.backgroundColor = UIColor.white
         self.navigationItem.title = "1n2a1r playlist"
         
+        self.player.setDelegate(self)
+        
+        fetchPlaylist(for: PLAYLIST_REF)
+        
         configureViewComponents()
     }
     
+    //MARK: - media player delegate methods
+    
+    func mediaPlayerTimeChanged(_ aNotification: Notification!) {
+        updateProgressBar()
+    }
+    
+    func mediaPlayerStateChanged(_ aNotification: Notification!) {
+        setTrackName()
+        //checkForSongFinish()
+    }
+    
     //MARK: - handlers
+    
+    func setTrackName() {
+        trackNameLabel.text = player.getTrackName()
+    }
+    
+    func updateProgressBar() {
+        
+        playingTimeLabel.text = self.player.getPlayingTime()
+        remainingTimeLabel.text = self.player.getRemainingTime()
+        
+        let position = self.player.getPosition()
+        let value: Float = position
+        print(value)
+        self.progressBar.setValue(value, animated: true)
+        
+        
+    }
+    
+    @objc func progressBarValueDidChange(sender:UISlider!) {
+        let position = sender.value
+        self.player.setPosition(position)
+    }
+    
+    @objc func handlePlayButton() {
+        
+        self.player.play()
+    }
+    
+    @objc func handleBackButton() {
+        
+//        self.player.back()
+        progressBar.setValue(progressBar.value + 10, animated: true)
+    }
+    
+    @objc func handleNextButton() {
+        
+        self.player.next()
+    }
     
     func configureViewComponents() {
         
@@ -107,33 +165,52 @@ class PlayerVC: UIViewController, VLCMediaPlayerDelegate {
         stackView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
         
         view.addSubview(trackNameLabel)
-        trackNameLabel.anchor(top: nil, left: nil, bottom: stackView.topAnchor, right: nil, paddingTop: 0, paddingLeft: 0, paddingBottom: 100, paddingRight: 0, width: 0, height: 0)
+        trackNameLabel.anchor(top: nil, left: nil, bottom: stackView.topAnchor, right: nil, paddingTop: 0, paddingLeft: 0, paddingBottom: 100, paddingRight: 0, width: 400, height: 0)
         trackNameLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         
         view.addSubview(progressBar)
         progressBar.anchor(top: stackView.bottomAnchor, left: nil, bottom: nil, right: nil, paddingTop: 100, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 400, height: 20)
         progressBar.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         
-        view.addSubview(startTimeLabel)
-        startTimeLabel.anchor(top: progressBar.bottomAnchor, left: progressBar.leftAnchor, bottom: nil, right: nil, paddingTop: 10, paddingLeft: 35, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
+        view.addSubview(playingTimeLabel)
+        playingTimeLabel.anchor(top: progressBar.bottomAnchor, left: progressBar.leftAnchor, bottom: nil, right: nil, paddingTop: 10, paddingLeft: 35, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
         
-        view.addSubview(endTimeLabel)
-        endTimeLabel.anchor(top: progressBar.bottomAnchor, left: nil, bottom: nil, right: progressBar.rightAnchor, paddingTop: 10, paddingLeft: 0, paddingBottom: 0, paddingRight: 35, width: 0, height: 0)
+        view.addSubview(remainingTimeLabel)
+        remainingTimeLabel.anchor(top: progressBar.bottomAnchor, left: nil, bottom: nil, right: progressBar.rightAnchor, paddingTop: 10, paddingLeft: 0, paddingBottom: 0, paddingRight: 35, width: 0, height: 0)
     }
     
-    
-    @objc func handlePlayButton() {
+    private func fetchPlaylist(for urlString: String) {
         
-        player.play()
-    }
-    
-    @objc func handleBackButton() {
-        
-        player.back()
-    }
-    
-    @objc func handleNextButton() {
-        
-        player.next()
+        Alamofire.request(urlString, method: .get, parameters: nil)
+            .response { response in
+                if let playlistString = String(data: response.data!, encoding: .utf8) {
+                    
+                    print("Sucess! Got the playlist string: \(playlistString)")
+                    
+                    let newPlaylist = Playlist()
+                    
+                    let playlistStrings = playlistString.components(separatedBy: " | ")
+                    
+                    for item in playlistStrings {
+                        
+                        let trackName = item
+                        let trackUrlString = LIBRARY_REF + trackName
+                        let encodedUrlString = trackUrlString.addingPercentEncoding(withAllowedCharacters: CharacterSet(charactersIn: " ").inverted)
+                        
+                        guard let trackUrl = URL(string: encodedUrlString!) else {
+                            print("Failed obtain encoded url string!")
+                            return
+                        }
+                        
+                        let track = Track(trackName: trackName, trackUrl: trackUrl)
+                        newPlaylist.addTrack(track: track)
+                    }
+                    
+                    self.player.setPlaylist(playlist: newPlaylist)
+                    
+                } else {
+                    print("Failed to get playlist!")
+                }
+        }
     }
 }

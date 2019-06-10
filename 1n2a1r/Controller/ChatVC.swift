@@ -79,6 +79,9 @@ class ChatVC: UICollectionViewController, UICollectionViewDelegateFlowLayout {
         
         // fetch messages
         fetchMessages()
+        
+        
+        checkUserIsLoggedIn()
     }
     
     
@@ -211,6 +214,18 @@ class ChatVC: UICollectionViewController, UICollectionViewDelegateFlowLayout {
         alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         
         present(alertController, animated: true, completion: nil)
+        
+    }
+    
+    func checkUserIsLoggedIn() {
+        
+        if Auth.auth().currentUser == nil {
+            DispatchQueue.main.async {
+                // present log in screen
+                let navigationController = UINavigationController(rootViewController: LoginViewController())
+                self.present(navigationController, animated: true, completion: nil)
+            }
+        }
         
     }
 }
