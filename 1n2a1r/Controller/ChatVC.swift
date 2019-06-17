@@ -80,14 +80,14 @@ class ChatVC: UICollectionViewController, UICollectionViewDelegateFlowLayout {
         // fetch messages
         fetchMessages()
         
-        
         checkUserIsLoggedIn()
     }
     
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        tabBarController?.tabBar.isHidden = true
+        
+        tabBarController?.tabBar.isHidden = false
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -201,9 +201,7 @@ class ChatVC: UICollectionViewController, UICollectionViewDelegateFlowLayout {
                 // log out user
                 try Auth.auth().signOut()
                 
-                // present log in screen
-                let navigationController = UINavigationController(rootViewController: LoginViewController())
-                self.present(navigationController, animated: true, completion: nil)
+                self.dismiss(animated: true, completion: nil)
                 
                 print("Successfully logged out user")
                 
@@ -217,15 +215,17 @@ class ChatVC: UICollectionViewController, UICollectionViewDelegateFlowLayout {
         
     }
     
+    
     func checkUserIsLoggedIn() {
         
         if Auth.auth().currentUser == nil {
             DispatchQueue.main.async {
                 // present log in screen
-                let navigationController = UINavigationController(rootViewController: LoginViewController())
-                self.present(navigationController, animated: true, completion: nil)
+                let navigationController = UINavigationController(rootViewController: SignUpViewController())
+                self.present(navigationController, animated: false, completion: nil)
             }
         }
-        
     }
+    
+
 }

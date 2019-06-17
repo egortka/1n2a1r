@@ -13,6 +13,19 @@ class SignUpViewController: UIViewController, UIImagePickerControllerDelegate, U
 
     var imageSelected = false
     
+    let logoContainerView: UIView = {
+        let view = UIView()
+        let logoImageView = UIImageView(image: #imageLiteral(resourceName: "logo_white"))
+        logoImageView.contentMode = .scaleAspectFit
+        view.addSubview(logoImageView)
+        logoImageView.anchor(top: nil, left: nil, bottom: nil, right: nil, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 200, height: 50)
+        logoImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        logoImageView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        view.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        
+        return view
+    }()
+    
     let addPhotoButton: UIButton = {
         let button = UIButton(type: UIButton.ButtonType.system)
         button.setImage(#imageLiteral(resourceName: "plus_photo").withRenderingMode(.alwaysOriginal), for: .normal)
@@ -78,15 +91,14 @@ class SignUpViewController: UIViewController, UIImagePickerControllerDelegate, U
         super.viewDidLoad()
         
         view.backgroundColor = UIColor.white
+        navigationController?.navigationBar.isHidden = false
         
-        view.addSubview(addPhotoButton)
-        addPhotoButton.anchor(top: view.topAnchor, left: nil, bottom: nil, right: nil, paddingTop: 40, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 140, height: 140)
-        addPhotoButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        
+        configureNavigationBar()
         configureViewComponents()
         
-        view.addSubview(alreadyHaveAccountButton)
-        alreadyHaveAccountButton.anchor(top: nil, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 50)
+        
+//        view.addSubview(alreadyHaveAccountButton)
+//        alreadyHaveAccountButton.anchor(top: nil, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 50)
     }
     
     //MARK: - UIImagePickerControllerDelegate methods
@@ -115,6 +127,10 @@ class SignUpViewController: UIViewController, UIImagePickerControllerDelegate, U
     
     //MARK: - Buttons handlers
     
+    @objc func handleBackButton() {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
     @objc func handleSelectProfilePhoto() {
         
         //configer image picker
@@ -133,12 +149,12 @@ class SignUpViewController: UIViewController, UIImagePickerControllerDelegate, U
     @objc func handleSignup() {
         
         //properties
-        guard let email = emailTextField.text else { return }
-        guard let password = passwordTextField.text else { return }
+//        guard let email = emailTextField.text else { return }
+//        guard let password = passwordTextField.text else { return }
         guard let username = usernameTextField.text?.lowercased() else { return }
         guard let profileImage = addPhotoButton.imageView?.image else { return }
         
-        Auth.auth().createUser(withEmail: email, password: password) { (result, error) in
+        Auth.auth().signInAnonymously() { (result, error) in
             
             // handle error
             if let error = error {
@@ -182,8 +198,6 @@ class SignUpViewController: UIViewController, UIImagePickerControllerDelegate, U
                         }
                         print("Successfully created user and saved data to database")
                         
-                        guard let mainViewController = UIApplication.shared.keyWindow?.rootViewController as? MainViewController else { return }
-                        mainViewController.configureViewControllers()
                         self.dismiss(animated: true, completion: nil)
                     })
                 })
@@ -197,9 +211,9 @@ class SignUpViewController: UIViewController, UIImagePickerControllerDelegate, U
     @objc func formValidation() {
         
         guard
-            emailTextField.hasText,
+//            emailTextField.hasText,
             usernameTextField.hasText,
-            passwordTextField.hasText,
+//            passwordTextField.hasText,
             imageSelected else {
                 signupButton.isEnabled = false
                 signupButton.backgroundColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
@@ -210,15 +224,29 @@ class SignUpViewController: UIViewController, UIImagePickerControllerDelegate, U
         signupButton.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
     }
     
+    
+    func configureNavigationBar() {
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(handleBackButton))
+        self.navigationItem.title = "Back"
+    }
+    
     func configureViewComponents() {
         
-        let stackView = UIStackView(arrangedSubviews: [emailTextField, usernameTextField, passwordTextField, signupButton])
+//        view.addSubview(logoContainerView)
+//        logoContainerView.anchor(top: view.topAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 140)
+        
+        let stackView = UIStackView(arrangedSubviews: [usernameTextField, signupButton])
         stackView.axis = .vertical
         stackView.spacing = 10
         stackView.distribution = .fillEqually
         
         view.addSubview(stackView)
-        stackView.anchor(top: addPhotoButton.bottomAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 24, paddingLeft: 40, paddingBottom: 0, paddingRight: 40, width: 0, height: 192)
+        stackView.anchor(top: nil, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 24, paddingLeft: 40, paddingBottom: 0, paddingRight: 40, width: 0, height: 96)
+        stackView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        
+        view.addSubview(addPhotoButton)
+        addPhotoButton.anchor(top: nil, left: nil, bottom: stackView.topAnchor, right: nil, paddingTop: 40, paddingLeft: 0, paddingBottom: 40, paddingRight: 0, width: 140, height: 140)
+        addPhotoButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
     }
 
 }

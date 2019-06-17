@@ -25,8 +25,7 @@ class MainViewController: UITabBarController, UITabBarControllerDelegate {
         configureViewControllers()
         
     }
-    
-    
+
     // create view controllers that exist within tab bar controller
     func configureViewControllers() {
         
@@ -63,10 +62,10 @@ class MainViewController: UITabBarController, UITabBarControllerDelegate {
         
         if index == 2 {
             
-            let selectImageViewController = ChatVC(collectionViewLayout: UICollectionViewFlowLayout())
-            let navigationController = UINavigationController(rootViewController: selectImageViewController)
+            let chatViewController = ChatVC(collectionViewLayout: UICollectionViewFlowLayout())
+            let navigationController = UINavigationController(rootViewController: chatViewController)
             navigationController.navigationBar.tintColor = .black
-            present(navigationController, animated: true, completion: nil)
+            self.present(navigationController, animated: true, completion: nil)
             
             return false
         }
