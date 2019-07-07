@@ -196,7 +196,7 @@ class SignUpViewController: UIViewController, UIImagePickerControllerDelegate, U
                         guard let mainViewController = UIApplication.shared.keyWindow?.rootViewController as? MainViewController else { return }
                         mainViewController.tabBarController?.selectedIndex = 2
                         
-                        let chatViewController = ChatVC(collectionViewLayout: UICollectionViewFlowLayout())
+                        let chatViewController = ChatVC()
                         let navigationController = UINavigationController(rootViewController: chatViewController)
                         navigationController.navigationBar.tintColor = .black
                         self.present(navigationController, animated: true, completion: nil)

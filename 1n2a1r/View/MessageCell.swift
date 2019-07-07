@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MessageCell: UICollectionViewCell {
+class MessageCell: UITableViewCell {
     
     // MARK: - Properties
     
@@ -56,8 +56,9 @@ class MessageCell: UICollectionViewCell {
     }()
     
     // MARK: - Init
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         self.addSubview(profileImageView)
         profileImageView.anchor(top: topAnchor, left: leftAnchor, bottom: nil, right: nil, paddingTop: 8, paddingLeft: 8, paddingBottom: 0, paddingRight: 0, width: 40, height: 40)

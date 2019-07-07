@@ -11,7 +11,7 @@ import Firebase
 
 private let reuseIdentifier = "MessageCell"
 
-class ChatVC: UICollectionViewController, UICollectionViewDelegateFlowLayout {
+class ChatVC: UITableViewController {
     
     // MARK: - Properties
     
@@ -62,14 +62,15 @@ class ChatVC: UICollectionViewController, UICollectionViewDelegateFlowLayout {
         super.viewDidLoad()
         
         // register cell
-        collectionView.register(MessageCell.self, forCellWithReuseIdentifier: reuseIdentifier)
+        tableView.register(MessageCell.self, forCellReuseIdentifier: reuseIdentifier)
         
         // configure collection view
-        collectionView.backgroundColor = .white
-        collectionView.alwaysBounceVertical = true
-        collectionView.keyboardDismissMode = .interactive
-        collectionView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-        collectionView.scrollIndicatorInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        tableView.backgroundColor = .white
+        tableView.alwaysBounceVertical = true
+        tableView.keyboardDismissMode = .interactive
+        tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        tableView.scrollIndicatorInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        tableView.separatorColor = .white
         
         // set title
         navigationItem.title = "Messages"
@@ -97,7 +98,8 @@ class ChatVC: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
     override var inputAccessoryView: UIView? {
         get {
-            self.collectionView.scrollToLast()
+            
+            self.tableView.scrollToLast()
             return containerView
         }
     }
@@ -108,28 +110,43 @@ class ChatVC: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
     // MARK: - CollectionView
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         let frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 60)
         let dummyCell = MessageCell(frame: frame)
         dummyCell.message = messages[indexPath.item]
         dummyCell.layoutIfNeeded()
         
-        let targetSize = CGSize(width: collectionView.frame.width, height: 1000)
+        let targetSize = CGSize(width: view.frame.width, height: 1000)
         let estimatedSize = dummyCell.systemLayoutSizeFitting(targetSize)
         
         let height = max(60, estimatedSize.height)
-        return CGSize(width: view.frame.width, height: height)
-        
+        return height
     }
     
-    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return messages.count
     }
     
-    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! MessageCell
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as! MessageCell
         cell.message = messages[indexPath.item]
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let reportAction = UIContextualAction(style: .normal, title: "Report") { (action, view, nil) in
+            self.report(message: self.messages[indexPath.item])
+        }
+        
+        reportAction.backgroundColor = #colorLiteral(red: 0.8549019694, green: 0.250980407, blue: 0.4784313738, alpha: 1)
+        
+        let blockAction = UIContextualAction(style: .normal, title: "Block") { (action, view, nil) in
+            self.block(message: self.messages[indexPath.item])
+        }
+        
+        blockAction.backgroundColor = #colorLiteral(red: 0.9568627477, green: 0.6588235497, blue: 0.5450980663, alpha: 1)
+        
+        return UISwipeActionsConfiguration(actions: [reportAction, blockAction])
     }
     
     // MARK: - Handlers
@@ -158,25 +175,6 @@ class ChatVC: UICollectionViewController, UICollectionViewDelegateFlowLayout {
                 self.postButton.isEnabled = true
             }
         }
-    }
-    
-    func fetchMessages() {
-        
-        MESSAGES_REF.observe(.childAdded) { (snapshot) in
-            
-            guard let dict = snapshot.value as? Dictionary<String, AnyObject> else { return }
-            guard let uid = dict["uid"] as? String else { return }
-            
-            Database.fetchUser(with: uid, complition: { (user) in
-                
-                let message = Message(with: user, dictionary: dict)
-                self.messages.append(message)
-                
-                self.collectionView.reloadData()
-                self.collectionView.scrollToLast()
-            })
-        }
-        
     }
     
     func configureNavigationBar() {
@@ -231,6 +229,57 @@ class ChatVC: UICollectionViewController, UICollectionViewDelegateFlowLayout {
                 self.present(navigationController, animated: false, completion: nil)
             }
         }
+    }
+    
+    func fetchMessages() {
+        
+        guard let currentUid = Auth.auth().currentUser?.uid else { return }
+        
+        MESSAGES_REF.observe(.childAdded) { (result) in
+            
+            guard let dict = result.value as? Dictionary<String, AnyObject> else { return }
+            guard let uid = dict["uid"] as? String else { return }
+            
+            BLOCKS_REF.child(currentUid).observeSingleEvent(of: .value) { (snapshot) in
+                
+                if !snapshot.hasChild(uid) {
+                    
+                    Database.fetchUser(with: uid, complition: { (user) in
+                        
+                        let message = Message(with: user, dictionary: dict)
+                        self.messages.append(message)
+                        
+                        self.tableView.reloadData()
+                        self.tableView.scrollToLast()
+                    })
+                    
+                }
+            }
+        }
+    }
+    
+    func block(message: Message) {
+        
+        report(message: message)
+        
+        guard let blockerUid = Auth.auth().currentUser?.uid else { return }
+        guard let blockedUid = message.user?.uid else { return }
+        
+        BLOCKS_REF.child(blockerUid).updateChildValues([blockedUid: 1])
+        
+        messages.removeAll()
+        tableView.reloadData()
+        
+        fetchMessages()
+    }
+    
+    func report(message: Message) {
+        
+        guard let reporterUid = Auth.auth().currentUser?.uid else { return }
+        guard let reportedUid = message.user?.uid else { return }
+        
+        REPORTS_REF.child(reportedUid).updateChildValues([reporterUid: 1])
+        tableView.reloadData()
     }
     
 

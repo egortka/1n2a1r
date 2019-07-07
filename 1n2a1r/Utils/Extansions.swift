@@ -68,7 +68,7 @@ extension UINavigationController {
     }
 }
 
-extension UICollectionView {
+extension UITableView {
     
     func scrollToLast() {
         
@@ -78,13 +78,13 @@ extension UICollectionView {
         
         let lastSection = numberOfSections - 1
         
-        guard numberOfItems(inSection: lastSection) > 0 else {
+        guard numberOfRows(inSection: lastSection) > 0 else {
             return
         }
         
-        let lastItemIndexPath = IndexPath(item: numberOfItems(inSection: lastSection) - 1,
+        let lastItemIndexPath = IndexPath(item: numberOfRows(inSection: lastSection) - 1,
                                           section: lastSection)
-        scrollToItem(at: lastItemIndexPath, at: .bottom, animated: true)
+        scrollToRow(at: lastItemIndexPath, at: .bottom, animated: true)
     }
 }
 

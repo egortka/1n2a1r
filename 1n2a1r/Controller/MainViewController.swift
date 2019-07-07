@@ -65,7 +65,7 @@ class MainViewController: UITabBarController, UITabBarControllerDelegate {
             
             if Auth.auth().currentUser != nil {
                 
-                let chatViewController = ChatVC(collectionViewLayout: UICollectionViewFlowLayout())
+                let chatViewController = ChatVC()
                 let navigationController = UINavigationController(rootViewController: chatViewController)
                 navigationController.navigationBar.tintColor = .black
                 self.present(navigationController, animated: true, completion: nil)

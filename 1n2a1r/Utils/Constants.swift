@@ -21,6 +21,8 @@ let STORAGE_PROFILE_IMAGES_REF = STORAGE_REF.child("profile_images")
 
 let USERS_REF = DB_REF.child("users")
 let MESSAGES_REF = DB_REF.child("Messages")
+let REPORTS_REF = DB_REF.child("reports")
+let BLOCKS_REF = DB_REF.child("blocks")
 
 //MARK: - Sources References
 
