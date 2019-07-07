@@ -93,7 +93,6 @@ class SignUpViewController: UIViewController, UIImagePickerControllerDelegate, U
         view.backgroundColor = UIColor.white
         navigationController?.navigationBar.isHidden = false
         
-        configureNavigationBar()
         configureViewComponents()
         
         
@@ -126,10 +125,6 @@ class SignUpViewController: UIViewController, UIImagePickerControllerDelegate, U
     }
     
     //MARK: - Buttons handlers
-    
-    @objc func handleBackButton() {
-        self.dismiss(animated: true, completion: nil)
-    }
     
     @objc func handleSelectProfilePhoto() {
         
@@ -198,7 +193,14 @@ class SignUpViewController: UIViewController, UIImagePickerControllerDelegate, U
                         }
                         print("Successfully created user and saved data to database")
                         
-                        self.dismiss(animated: true, completion: nil)
+                        guard let mainViewController = UIApplication.shared.keyWindow?.rootViewController as? MainViewController else { return }
+                        mainViewController.tabBarController?.selectedIndex = 2
+                        
+                        let chatViewController = ChatVC(collectionViewLayout: UICollectionViewFlowLayout())
+                        let navigationController = UINavigationController(rootViewController: chatViewController)
+                        navigationController.navigationBar.tintColor = .black
+                        self.present(navigationController, animated: true, completion: nil)
+                        
                     })
                 })
                 
@@ -222,12 +224,6 @@ class SignUpViewController: UIViewController, UIImagePickerControllerDelegate, U
         
         signupButton.isEnabled = true
         signupButton.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
-    }
-    
-    
-    func configureNavigationBar() {
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(handleBackButton))
-        self.navigationItem.title = "Back"
     }
     
     func configureViewComponents() {

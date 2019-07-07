@@ -188,6 +188,11 @@ class ChatVC: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
     @objc func handleBackButton() {
         containerView.isHidden = true
+        
+        if let mainViewController = UIApplication.shared.keyWindow?.rootViewController as? MainViewController {
+            mainViewController.selectedIndex = 0
+        }
+        
         self.dismiss(animated: true, completion: nil)
     }
     
@@ -222,6 +227,7 @@ class ChatVC: UICollectionViewController, UICollectionViewDelegateFlowLayout {
             DispatchQueue.main.async {
                 // present log in screen
                 let navigationController = UINavigationController(rootViewController: SignUpViewController())
+                navigationController.navigationBar.tintColor = .black
                 self.present(navigationController, animated: false, completion: nil)
             }
         }

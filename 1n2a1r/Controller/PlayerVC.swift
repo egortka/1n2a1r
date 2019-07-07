@@ -169,7 +169,7 @@ class PlayerVC: UIViewController, VLCMediaPlayerDelegate {
         trackNameLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         
         view.addSubview(progressBar)
-        progressBar.anchor(top: stackView.bottomAnchor, left: nil, bottom: nil, right: nil, paddingTop: 100, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 400, height: 20)
+        progressBar.anchor(top: stackView.bottomAnchor, left: nil, bottom: nil, right: nil, paddingTop: 100, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 380, height: 20)
         progressBar.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         
         view.addSubview(playingTimeLabel)

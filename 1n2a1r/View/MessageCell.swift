@@ -25,7 +25,7 @@ class MessageCell: UICollectionViewCell {
             
             let attributedText = NSMutableAttributedString(string: username, attributes: [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 12)])
             attributedText.append(NSAttributedString(string: " \(messageText)", attributes: [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 12)]))
-            attributedText.append(NSAttributedString(string: " 2d", attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 12), NSAttributedString.Key.foregroundColor: UIColor.lightGray]))
+//            attributedText.append(NSAttributedString(string: " 2d", attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 12), NSAttributedString.Key.foregroundColor: UIColor.lightGray]))
             messageTextView.attributedText = attributedText
   
         }
@@ -45,6 +45,7 @@ class MessageCell: UICollectionViewCell {
         let textView = UITextView()
         textView.font = UIFont.systemFont(ofSize: 12)
         textView.isScrollEnabled = false
+        textView.isEditable = false
         return textView
     }()
     

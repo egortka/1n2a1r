@@ -36,11 +36,12 @@ class MainViewController: UITabBarController, UITabBarControllerDelegate {
         let streamVC = constructNavigationController(unselectedImage: #imageLiteral(resourceName: "stream"), selectedImage: #imageLiteral(resourceName: "selectedStream"), rootViewController: StreamVC())
         
         // search feed controller
-        let chatVC = constructNavigationController(unselectedImage: #imageLiteral(resourceName: "chat"), selectedImage: #imageLiteral(resourceName: "selectedChat"))
+        let chatVC = constructNavigationController(unselectedImage: #imageLiteral(resourceName: "chat"), selectedImage: #imageLiteral(resourceName: "selectedChat"), rootViewController: SignUpViewController())
         
         // view controllers to be added to tab controller
         viewControllers = [playerVC, streamVC, chatVC]
         tabBar.tintColor = .black
+        self.reloadInputViews()
         
     }
     
@@ -51,7 +52,7 @@ class MainViewController: UITabBarController, UITabBarControllerDelegate {
         navigationController.tabBarItem.image = unselectedImage
         navigationController.tabBarItem.selectedImage = selectedImage
         navigationController.navigationBar.tintColor = .black
-        navigationController.tabBarItem.imageInsets = UIEdgeInsets(top: 10, left: 0, bottom: -10, right: 0)
+        navigationController.tabBarItem.imageInsets = UIEdgeInsets(top: 10, left: 0, bottom: 0, right: 0)
         
         
         return navigationController
@@ -62,12 +63,17 @@ class MainViewController: UITabBarController, UITabBarControllerDelegate {
         
         if index == 2 {
             
-            let chatViewController = ChatVC(collectionViewLayout: UICollectionViewFlowLayout())
-            let navigationController = UINavigationController(rootViewController: chatViewController)
-            navigationController.navigationBar.tintColor = .black
-            self.present(navigationController, animated: true, completion: nil)
+            if Auth.auth().currentUser != nil {
+                
+                let chatViewController = ChatVC(collectionViewLayout: UICollectionViewFlowLayout())
+                let navigationController = UINavigationController(rootViewController: chatViewController)
+                navigationController.navigationBar.tintColor = .black
+                self.present(navigationController, animated: true, completion: nil)
+                
+                return false
+            }
             
-            return false
+            
         }
         
         return true
