@@ -28,7 +28,7 @@ class StreamVC: UIViewController, VLCMediaPlayerDelegate {
         super.viewDidLoad()
         
         view.backgroundColor = UIColor.white
-        self.navigationItem.title = "Test stream"
+        self.navigationItem.title = "Live stream"
         
         mediaPlayer.delegate = self
         let url = STREAM_REF

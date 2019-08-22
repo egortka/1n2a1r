@@ -82,6 +82,7 @@ class ChatVC: UITableViewController {
         fetchMessages()
         
         checkUserIsLoggedIn()
+        
     }
     
     
@@ -89,6 +90,8 @@ class ChatVC: UITableViewController {
         super.viewWillAppear(animated)
         
         tabBarController?.tabBar.isHidden = false
+        
+        checkEULA()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -228,6 +231,26 @@ class ChatVC: UITableViewController {
                 navigationController.navigationBar.tintColor = .black
                 self.present(navigationController, animated: false, completion: nil)
             }
+        }
+    }
+    
+    func checkEULA() {
+        
+        if !UserDefaults.standard.bool(forKey: "isEulaAccepted") {
+            let alert = UIAlertController(title: "Terms and conditions", message: "I agree to the Terms & Conditions, Privacy Policy and EULA.", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Confirm", style: .default, handler: { action in
+                
+                UserDefaults.standard.set(true, forKey: "isEulaAccepted")
+            }))
+            
+            alert.addAction(UIAlertAction(title: "Details", style: .default, handler: { action in
+                
+                let navigationController = UINavigationController(rootViewController: TermsVC())
+                navigationController.navigationBar.tintColor = .black
+                self.present(navigationController, animated: false, completion: nil)
+            }))
+                
+            self.present(alert, animated: true, completion: nil)
         }
     }
     
