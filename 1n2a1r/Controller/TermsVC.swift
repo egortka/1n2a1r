@@ -19,7 +19,7 @@ class TermsVC: UIViewController {
         
         self.view.addSubview(myWebView)
         
-        //1. Load web site into my web view
+        //Load web site into my web view
         let myURL = URL(string: "https://egortka.github.io/")
         let myURLRequest:URLRequest = URLRequest(url: myURL!)
         myWebView.loadRequest(myURLRequest)

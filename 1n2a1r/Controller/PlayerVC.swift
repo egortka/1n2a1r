@@ -9,6 +9,7 @@
 import UIKit
 import Firebase
 import Alamofire
+import SwiftyJSON
 
 class PlayerVC: UIViewController, VLCMediaPlayerDelegate {
 
@@ -58,14 +59,15 @@ class PlayerVC: UIViewController, VLCMediaPlayerDelegate {
         slider.setValue(0, animated: true)
         slider.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
         
-        slider.addTarget(self, action: #selector(progressBarValueDidChange),for: .valueChanged)
+        slider.addTarget(self, action: #selector(progressBarValueDidChange),for: [.touchUpInside, .touchUpOutside])
+        slider.addTarget(self, action: #selector(progressBarValueWillChange),for: .valueChanged)
 
         return slider
     }()
     
     let playingTimeLabel: UILabel = {
         let label = UILabel()
-        label.text = "-:-"
+        label.text = "00:00"
         label.font = UIFont.boldSystemFont(ofSize: 12)
         return label
     }()
@@ -109,13 +111,14 @@ class PlayerVC: UIViewController, VLCMediaPlayerDelegate {
     }
     
     func mediaPlayerStateChanged(_ aNotification: Notification!) {
+        
         setTrackName()
-        //checkForSongFinish()
     }
     
     //MARK: - handlers
     
     func setTrackName() {
+        
         trackNameLabel.text = player.getTrackName()
     }
     
@@ -125,32 +128,47 @@ class PlayerVC: UIViewController, VLCMediaPlayerDelegate {
         remainingTimeLabel.text = self.player.getRemainingTime()
         
         let position = self.player.getPosition()
-        let value: Float = position
-        print(value)
-        self.progressBar.setValue(value, animated: true)
+        self.progressBar.setValue(position, animated: true)
         
+    }
+    
+    @objc func progressBarValueWillChange(sender:UISlider!) {
+        
+        self.player.pause()
         
     }
     
     @objc func progressBarValueDidChange(sender:UISlider!) {
+
         let position = sender.value
-        self.player.setPosition(position)
+        
+        if position < 0.99 {
+            
+            self.player.setPosition(position)
+            
+        } else {
+            
+            self.player.next()
+            self.player.play()
+        }
     }
     
     @objc func handlePlayButton() {
         
+        self.player.setPlaylistMod()
         self.player.play()
     }
     
     @objc func handleBackButton() {
         
-//        self.player.back()
-        progressBar.setValue(progressBar.value + 10, animated: true)
+        self.player.back()
+        self.setTrackName()
     }
     
     @objc func handleNextButton() {
         
         self.player.next()
+        self.setTrackName()
     }
     
     func configureViewComponents() {
@@ -165,7 +183,7 @@ class PlayerVC: UIViewController, VLCMediaPlayerDelegate {
         stackView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
         
         view.addSubview(trackNameLabel)
-        trackNameLabel.anchor(top: nil, left: nil, bottom: stackView.topAnchor, right: nil, paddingTop: 0, paddingLeft: 0, paddingBottom: 100, paddingRight: 0, width: 400, height: 0)
+        trackNameLabel.anchor(top: nil, left: view.leftAnchor, bottom: stackView.topAnchor, right: view.rightAnchor, paddingTop: 0, paddingLeft: 10, paddingBottom: 100, paddingRight: 10, width: 400, height: 0)
         trackNameLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         
         view.addSubview(progressBar)
@@ -179,38 +197,59 @@ class PlayerVC: UIViewController, VLCMediaPlayerDelegate {
         remainingTimeLabel.anchor(top: progressBar.bottomAnchor, left: nil, bottom: nil, right: progressBar.rightAnchor, paddingTop: 10, paddingLeft: 0, paddingBottom: 0, paddingRight: 35, width: 0, height: 0)
     }
     
-    private func fetchPlaylist(for urlString: String) {
+    func fetchPlaylist(for urlString: String) {
         
         Alamofire.request(urlString, method: .get, parameters: nil)
-            .response { response in
-                if let playlistString = String(data: response.data!, encoding: .utf8) {
+            .responseJSON { response in
+                
+                if response.result.isSuccess {
                     
-                    print("Sucess! Got the playlist string: \(playlistString)")
+                    print("Success! Got the playlist data")
                     
-                    let newPlaylist = Playlist()
+                    let playlistJSON : JSON = JSON(response.result.value!)
+                    print(playlistJSON)
+                    self.updatePlaylist(with: playlistJSON)
                     
-                    let playlistStrings = playlistString.components(separatedBy: " | ")
+                }
+                else {
                     
-                    for item in playlistStrings {
-                        
-                        let trackName = item
-                        let trackUrlString = LIBRARY_REF + trackName
-                        let encodedUrlString = trackUrlString.addingPercentEncoding(withAllowedCharacters: CharacterSet(charactersIn: " ").inverted)
-                        
-                        guard let trackUrl = URL(string: encodedUrlString!) else {
-                            print("Failed obtain encoded url string!")
-                            return
-                        }
-                        
-                        let track = Track(trackName: trackName, trackUrl: trackUrl)
-                        newPlaylist.addTrack(track: track)
-                    }
+                    print("Error \(response.result.error!)")
                     
-                    self.player.setPlaylist(playlist: newPlaylist)
-                    
-                } else {
-                    print("Failed to get playlist!")
                 }
         }
+    }
+    
+    func updatePlaylist(with json: JSON) {
+        
+        let playlistData = json["monthly"][0]["playlist"]
+        
+        let newPlaylist = Playlist()
+        for item in playlistData {
+            
+            guard let trackName = item.1["title"].string else {
+                print("Failed obtain trackName string from json!")
+                return
+            }
+            
+            guard let trackUrl = item.1["url"].string else {
+                print("Failed obtain trackUrl string from json!")
+                return
+            }
+            
+            let trackUrlString = LIBRARY_REF + trackUrl
+            
+            let encodedUrlString = trackUrlString.addingPercentEncoding(withAllowedCharacters: CharacterSet(charactersIn: " ").inverted)
+
+            guard let url = URL(string: encodedUrlString!) else {
+                print("Failed obtain encoded url string!")
+                return
+            }
+
+            let track = Track(trackName: trackName, trackUrl: url)
+            newPlaylist.addTrack(track: track)
+        }
+        
+        self.player.setPlaylist(playlist: newPlaylist)
+    
     }
 }

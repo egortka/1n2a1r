@@ -11,4 +11,5 @@ target '1n2a1r' do
   pod 'Firebase/Storage'
   pod 'MobileVLCKit'
   pod 'Alamofire'
+  pod 'SwiftyJSON'
 end

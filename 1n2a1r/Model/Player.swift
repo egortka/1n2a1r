@@ -11,7 +11,9 @@ class Player {
     // MARK: - Properties
     private let player = VLCMediaPlayer()
     private var playlist: Playlist?
+    private var liveStreamURL: URL?
     private var currentTrack = 0
+    private var isOnLiveStreamMod = false
     
     // MARK: - Init
 
@@ -24,6 +26,31 @@ class Player {
         setTrack(number: 0)
     }
     
+    func setLiveStreamURL(streamURL: URL) {
+        
+        self.liveStreamURL = streamURL
+    }
+    
+    func setLiveStreamMod() {
+        
+        if !self.isOnLiveStreamMod {
+            
+            self.isOnLiveStreamMod = true
+            
+            guard let streamURL = self.liveStreamURL else { return }
+            self.player.media = VLCMedia(url: streamURL)
+        }
+    }
+    
+    func setPlaylistMod() {
+        
+        if self.isOnLiveStreamMod {
+            self.isOnLiveStreamMod = false
+            setTrack(number: self.currentTrack)
+        }
+        
+    }
+    
     func play() {
         if !self.player.isPlaying {
             self.player.play()
@@ -31,6 +58,13 @@ class Player {
             self.player.pause()
         }
         
+    }
+    
+    func pause() {
+        
+        if self.player.isPlaying {
+            self.player.pause()
+        }
     }
     
     func back() {
@@ -77,7 +111,6 @@ class Player {
     func getPosition() -> Float {
         
         let position = self.player.position
-        print(position)
         return position
     }
     

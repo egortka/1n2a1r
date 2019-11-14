@@ -19,21 +19,32 @@ class StreamVC: UIViewController, VLCMediaPlayerDelegate {
         return button
     }()
     
-    var mediaPlayer = VLCMediaPlayer()
+    var player: Player
     var isPlaing = false
     
     //MARK: - init
+    
+    init(player: Player) {
+        
+        self.player = player
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         view.backgroundColor = UIColor.white
         self.navigationItem.title = "Live stream"
-        
-        mediaPlayer.delegate = self
-        let url = STREAM_REF
+
+        let url = "http://stream.dancewave.online:8080/dance.ogg" //STREAM_REF
         let encodedUrl = url.addingPercentEncoding(withAllowedCharacters: CharacterSet(charactersIn: " ").inverted)
-        mediaPlayer.media = VLCMedia(url: URL(string: encodedUrl!)!)
+        
+        guard let streamURL = URL(string: encodedUrl!) else { return }
+        self.player.setLiveStreamURL(streamURL: streamURL)
         
         view.addSubview(playButton)
         playButton.anchor(top: view.topAnchor, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
@@ -41,13 +52,18 @@ class StreamVC: UIViewController, VLCMediaPlayerDelegate {
     
     //MARK: - handlers
     @objc func handlePlayButton() {
-        if isPlaing {
-            mediaPlayer.stop()
-            isPlaing = false
-        } else {
-            mediaPlayer.play()
-            isPlaing = true
-        }
+        
+        self.player.setLiveStreamMod()
+        self.player.play()
+        
+//        if isPlaing {
+//            self.player.pause()
+//            isPlaing = false
+//        } else {
+//            player.pause()
+//            self.player.play()
+//            isPlaing = true
+//        }
         
     }
 }

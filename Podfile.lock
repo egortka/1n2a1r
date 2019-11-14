@@ -34,6 +34,7 @@ PODS:
   - GTMSessionFetcher/Core (1.2.1)
   - leveldb-library (1.20)
   - MobileVLCKit (3.3.1)
+  - SwiftyJSON (4.2.0)
 
 DEPENDENCIES:
   - Alamofire
@@ -41,6 +42,7 @@ DEPENDENCIES:
   - Firebase/Database
   - Firebase/Storage
   - MobileVLCKit
+  - SwiftyJSON
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -55,6 +57,7 @@ SPEC REPOS:
     - GTMSessionFetcher
     - leveldb-library
     - MobileVLCKit
+    - SwiftyJSON
 
 SPEC CHECKSUMS:
   Alamofire: ae5c501addb7afdbb13687d7f2f722c78734c2d3
@@ -68,7 +71,8 @@ SPEC CHECKSUMS:
   GTMSessionFetcher: 32aeca0aa144acea523e1c8e053089dec2cb98ca
   leveldb-library: 08cba283675b7ed2d99629a4bc5fd052cd2bb6a5
   MobileVLCKit: 021031f214414aa801909f61544912162d3bcd49
+  SwiftyJSON: c4bcba26dd9ec7a027fc8eade48e2c911f229e96
 
-PODFILE CHECKSUM: 14f147b92ff96e14b6aee3c3090fb54062e953a2
+PODFILE CHECKSUM: 44ca5aa9ad8f94bb9fef359d162c5b03a9f06cd8
 
 COCOAPODS: 1.6.0

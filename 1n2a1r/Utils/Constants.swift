@@ -26,6 +26,6 @@ let BLOCKS_REF = DB_REF.child("blocks")
 
 //MARK: - Sources References
 
-let STREAM_REF = "http://1n2a1r.com:8000/m3s"
-let LIBRARY_REF = "http://1n2a1r.com/audio/m3s/"
-let PLAYLIST_REF = LIBRARY_REF + "playlist"
+let STREAM_REF = "http://1n2a1r.com:8000/"
+let LIBRARY_REF = "http://1n2a1r.com/"
+let PLAYLIST_REF = "http://1n2a1r.com/api/audio.json"

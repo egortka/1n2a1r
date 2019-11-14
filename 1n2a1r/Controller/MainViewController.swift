@@ -33,7 +33,7 @@ class MainViewController: UITabBarController, UITabBarControllerDelegate {
         let playerVC = constructNavigationController(unselectedImage: #imageLiteral(resourceName: "player"), selectedImage: #imageLiteral(resourceName: "selectedPlayer"), rootViewController:  PlayerVC(player: self.player))
         
         // search feed controller
-        let streamVC = constructNavigationController(unselectedImage: #imageLiteral(resourceName: "stream"), selectedImage: #imageLiteral(resourceName: "selectedStream"), rootViewController: StreamVC())
+        let streamVC = constructNavigationController(unselectedImage: #imageLiteral(resourceName: "stream"), selectedImage: #imageLiteral(resourceName: "selectedStream"), rootViewController: StreamVC(player: self.player))
         
         // search feed controller
         let chatVC = constructNavigationController(unselectedImage: #imageLiteral(resourceName: "chat"), selectedImage: #imageLiteral(resourceName: "selectedChat"), rootViewController: SignUpViewController())
