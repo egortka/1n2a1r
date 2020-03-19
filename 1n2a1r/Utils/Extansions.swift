@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Firebase
 
 extension UIView {
     
@@ -37,19 +36,6 @@ extension UIView {
         
         if height != 0 {
             self.heightAnchor.constraint(equalToConstant: height).isActive = true
-        }
-    }
-}
-
-extension Database {
-    
-    static func fetchUser(with uid: String, complition: @escaping(User) -> ()) {
-        
-        USERS_REF.child(uid).observeSingleEvent(of: .value) { (snapshot) in
-            guard let dict = snapshot.value as? Dictionary<String, AnyObject> else { return }
-            
-            let user = User(uid: uid, dictionart: dict)
-            complition(user)
         }
     }
 }

@@ -6,10 +6,5 @@ target '1n2a1r' do
   use_frameworks!
 
   # Pods for 1n2a1r
-  pod 'Firebase/Auth'
-  pod 'Firebase/Database'
-  pod 'Firebase/Storage'
   pod 'MobileVLCKit'
-  pod 'Alamofire'
-  pod 'SwiftyJSON'
 end

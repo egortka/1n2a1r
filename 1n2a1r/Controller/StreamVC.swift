@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Firebase
 
 class StreamVC: UIViewController, VLCMediaPlayerDelegate {
 
@@ -16,6 +15,10 @@ class StreamVC: UIViewController, VLCMediaPlayerDelegate {
         let button = UIButton(type: UIButton.ButtonType.system)
         button.setImage(#imageLiteral(resourceName: "logo_black").withRenderingMode(.alwaysOriginal), for: .normal)
         button.addTarget(self, action: #selector(handlePlayButton), for: .touchUpInside)
+        button.layer.shadowColor = #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1)
+        button.layer.shadowRadius = 5.0
+        button.layer.shadowOpacity = 0.0
+        button.layer.shadowOffset = .zero
         return button
     }()
     
@@ -40,7 +43,7 @@ class StreamVC: UIViewController, VLCMediaPlayerDelegate {
         view.backgroundColor = UIColor.white
         self.navigationItem.title = "Live stream"
 
-        let url = "http://stream.dancewave.online:8080/dance.ogg" //STREAM_REF
+        let url = STREAM_REF
         let encodedUrl = url.addingPercentEncoding(withAllowedCharacters: CharacterSet(charactersIn: " ").inverted)
         
         guard let streamURL = URL(string: encodedUrl!) else { return }
@@ -56,14 +59,13 @@ class StreamVC: UIViewController, VLCMediaPlayerDelegate {
         self.player.setLiveStreamMod()
         self.player.play()
         
-//        if isPlaing {
-//            self.player.pause()
-//            isPlaing = false
-//        } else {
-//            player.pause()
-//            self.player.play()
-//            isPlaing = true
-//        }
+        if isPlaing {
+            playButton.layer.shadowOpacity = 0
+            isPlaing = false
+        } else {
+            playButton.layer.shadowOpacity = 1
+            isPlaing = true
+        }
         
     }
 }
