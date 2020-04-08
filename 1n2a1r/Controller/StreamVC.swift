@@ -22,6 +22,17 @@ class StreamVC: UIViewController, VLCMediaPlayerDelegate {
         return button
     }()
     
+    let respectButton: UIButton = {
+        let button = UIButton(type: UIButton.ButtonType.system)
+        button.setTitle("SEND RESPECT", for: UIControl.State.normal)
+        button.backgroundColor = .black
+        button.layer.opacity = 0.8
+        button.setTitleColor(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), for: UIControl.State.normal)
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
+        button.addTarget(self, action: #selector(handleRespectButton), for: .touchUpInside)
+        return button
+    }()
+    
     var player: Player
     var isPlaing = false
     
@@ -37,35 +48,47 @@ class StreamVC: UIViewController, VLCMediaPlayerDelegate {
         fatalError("init(coder:) has not been implemented")
     }
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         view.backgroundColor = UIColor.white
-        self.navigationItem.title = "Live stream"
+        navigationController?.navigationBar.isHidden = true
 
         let url = STREAM_REF
         let encodedUrl = url.addingPercentEncoding(withAllowedCharacters: CharacterSet(charactersIn: " ").inverted)
-        
         guard let streamURL = URL(string: encodedUrl!) else { return }
         self.player.setLiveStreamURL(streamURL: streamURL)
+        self.player.setLiveStreamMod()
         
         view.addSubview(playButton)
-        playButton.anchor(top: view.topAnchor, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
+        playButton.anchor(top: nil, left: nil, bottom: nil, right: nil, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 100, height: 100)
+        playButton.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        playButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        
+        
+        view.addSubview(respectButton)
+        respectButton.anchor(top: nil, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 320, height: 80)
     }
     
     //MARK: - handlers
     @objc func handlePlayButton() {
         
-        self.player.setLiveStreamMod()
-        self.player.play()
-        
         if isPlaing {
+            self.player.pause()
             playButton.layer.shadowOpacity = 0
             isPlaing = false
         } else {
+            self.player.play()
             playButton.layer.shadowOpacity = 1
             isPlaing = true
         }
-        
+    }
+
+    @objc func handleRespectButton() {
+        let nextViewController = RespectVC()
+        if let navigationController = self.navigationController {
+                navigationController.pushViewController(nextViewController, animated: true)
+        }
     }
 }

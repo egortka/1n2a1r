@@ -48,20 +48,15 @@ class Player {
             self.isOnLiveStreamMod = false
             setTrack(number: self.currentTrack)
         }
-        
     }
     
     func play() {
         if !self.player.isPlaying {
             self.player.play()
-        } else {
-            self.player.pause()
         }
-        
     }
     
     func pause() {
-        
         if self.player.isPlaying {
             self.player.pause()
         }
@@ -131,7 +126,4 @@ class Player {
         
         self.player.delegate = delegate
     }
-    
-    
-    
 }

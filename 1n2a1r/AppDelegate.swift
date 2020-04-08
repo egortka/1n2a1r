@@ -16,8 +16,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
+        let navigationController = UINavigationController()
+        let mainView = StreamVC(player: Player())
+        navigationController.viewControllers = [mainView]
+//        self.window!.rootViewController = navigationController
+//        self.window?.makeKeyAndVisible()
+        
+        
         window = UIWindow()
-        window?.rootViewController = StreamVC(player: Player())
+        window?.rootViewController = navigationController//StreamVC(player: Player())
         
         return true
     }
