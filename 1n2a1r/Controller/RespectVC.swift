@@ -26,7 +26,7 @@ class RespectVC: UIViewController {
         button.setTitle("Yandex money", for: UIControl.State.normal)
 //        button.backgroundColor = #colorLiteral(red: 1, green: 0.8078431373, blue: 0.0431372549, alpha: 1)
         button.layer.borderWidth = 2
-        button.layer.borderColor = #colorLiteral(red: 1, green: 0.8078431373, blue: 0.0431372549, alpha: 1)
+        button.layer.borderColor = #colorLiteral(red: 0.9411764706, green: 0.5960784314, blue: 0.03529411765, alpha: 1)
         button.layer.cornerRadius = 10
         button.setTitleColor(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1), for: UIControl.State.normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
@@ -52,7 +52,7 @@ class RespectVC: UIViewController {
         button.setTitle("Sber/Alfa", for: UIControl.State.normal)
         //        button.backgroundColor = #colorLiteral(red: 0.9843137255, green: 0.2588235294, blue: 0.5176470588, alpha: 1)
         button.layer.borderWidth = 2
-        button.layer.borderColor = #colorLiteral(red: 0, green: 0.4823529412, blue: 0.137254902, alpha: 1)
+        button.layer.borderColor = #colorLiteral(red: 0.2352941176, green: 0.7098039216, blue: 0.7843137255, alpha: 1)
         button.layer.cornerRadius = 10
         button.setTitleColor(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1), for: UIControl.State.normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
