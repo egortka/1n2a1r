@@ -18,10 +18,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let navigationController = UINavigationController()
         let mainView = StreamVC(player: Player())
+        
         navigationController.viewControllers = [mainView]
 //        self.window!.rootViewController = navigationController
 //        self.window?.makeKeyAndVisible()
-        
         
         window = UIWindow()
         window?.rootViewController = navigationController//StreamVC(player: Player())

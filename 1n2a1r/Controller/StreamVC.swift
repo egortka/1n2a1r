@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AVFoundation
 
 class StreamVC: UIViewController, VLCMediaPlayerDelegate {
 
@@ -39,9 +40,9 @@ class StreamVC: UIViewController, VLCMediaPlayerDelegate {
     //MARK: - init
     
     init(player: Player) {
-        
         self.player = player
         super.init(nibName: nil, bundle: nil)
+        self.player.setDelegate(self)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -61,6 +62,13 @@ class StreamVC: UIViewController, VLCMediaPlayerDelegate {
         self.player.setLiveStreamURL(streamURL: streamURL)
         self.player.setLiveStreamMod()
         
+        let nc = NotificationCenter.default
+        nc.addObserver(self,
+                       selector: #selector(handleInterruption),
+                       name: AVAudioSession.interruptionNotification,
+                       object: nil)
+
+        
         view.addSubview(playButton)
         playButton.anchor(top: nil, left: nil, bottom: nil, right: nil, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 100, height: 100)
         playButton.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
@@ -72,17 +80,55 @@ class StreamVC: UIViewController, VLCMediaPlayerDelegate {
     }
     
     //MARK: - handlers
+    
+    @objc func handleInterruption(_ notification: Notification) {
+        guard let userInfo = notification.userInfo,
+            let typeValue = userInfo[AVAudioSessionInterruptionTypeKey] as? UInt,
+            let type = AVAudioSession.InterruptionType(rawValue: typeValue) else {
+                return
+        }
+        
+        // Switch over the interruption type.
+        switch type {
+            
+        case .began:
+            handlePause()
+            
+        case .ended:
+            handlePlay()
+            
+            guard let optionsValue = userInfo[AVAudioSessionInterruptionOptionKey] as? UInt else { return }
+            let options = AVAudioSession.InterruptionOptions(rawValue: optionsValue)
+            if options.contains(.shouldResume) {
+                handlePlay()
+            } else {
+                handlePlay()
+            }
+            
+        default: ()
+        }
+    }
+    
+    
     @objc func handlePlayButton() {
         
         if isPlaing {
-            self.player.pause()
-            playButton.layer.shadowOpacity = 0
-            isPlaing = false
+            handlePause()
         } else {
-            self.player.play()
-            playButton.layer.shadowOpacity = 1
-            isPlaing = true
+            handlePlay()
         }
+    }
+    
+    func handlePlay() {
+        self.player.play()
+        playButton.layer.shadowOpacity = 1
+        isPlaing = true
+    }
+    
+    func handlePause() {
+        self.player.pause()
+        playButton.layer.shadowOpacity = 0
+        isPlaing = false
     }
 
     @objc func handleRespectButton() {
@@ -91,4 +137,11 @@ class StreamVC: UIViewController, VLCMediaPlayerDelegate {
                 navigationController.pushViewController(nextViewController, animated: true)
         }
     }
+//
+//    // MARK: - VLCMediaPlayerDelegate
+//    func mediaPlayerStateChanged(_ aNotification: Notification!) {
+//        print("------------------------------")
+//        print(VLCMediaPlayerStateToString(self.player.getState()))
+//        print(self.player.getChannel())
+//    }
 }

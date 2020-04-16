@@ -7,7 +7,7 @@
 //
 
 class Player {
-    
+ 
     // MARK: - Properties
     private let player = VLCMediaPlayer()
     private var playlist: Playlist?
@@ -39,6 +39,9 @@ class Player {
             
             guard let streamURL = self.liveStreamURL else { return }
             self.player.media = VLCMedia(url: streamURL)
+            self.player.currentAudioPlaybackDelay = 2000
+            self.player.play()
+            self.player.pause()
         }
     }
     
@@ -49,8 +52,9 @@ class Player {
             setTrack(number: self.currentTrack)
         }
     }
-    
+
     func play() {
+        
         if !self.player.isPlaying {
             self.player.play()
         }
@@ -86,6 +90,18 @@ class Player {
         let trackName = trackNameString.replacingOccurrences(of: ".mp3", with: "")
         
         return trackName
+    }
+    
+    func getState() -> VLCMediaPlayerState {
+        
+        
+        return self.player.state
+    }
+    
+    func getChannel() -> Int {
+        
+        
+        return Int(self.player.audioChannel)
     }
     
     func getPlayingTime() -> String {
@@ -126,4 +142,5 @@ class Player {
         
         self.player.delegate = delegate
     }
+
 }
