@@ -91,3 +91,39 @@ extension VLCTime {
     }
 }
 
+extension String {
+    func convertToDictionary() -> [String: String]? {
+        if let data = self.data(using: .utf8) {
+            do {
+                return try JSONSerialization.jsonObject(with: data, options: []) as? [String: String]
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
+        return nil
+    }
+}
+
+extension String {
+    
+    var stripped: String {
+        let okayChars = Set("abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLKMNOPQRSTUVWXYZ1234567890+-=().!_/:")
+        return self.filter {okayChars.contains($0) }
+    }
+}
+
+extension String {
+    func removingLeadingSpaces() -> String {
+        guard let index = firstIndex(where: { !CharacterSet(charactersIn: String($0)).isSubset(of: .whitespaces) }) else {
+            return self
+        }
+        return String(self[index...])
+    }
+}
+
+extension Dictionary {
+    subscript(i: Int) -> (key: Key, value: Value) {
+        return self[index(startIndex, offsetBy: i)]
+    }
+}
+

@@ -35,12 +35,14 @@ class StreamVC: UIViewController, VLCMediaPlayerDelegate {
     }()
     
     var player: Player
+    var serverDataController: ServerData
     var isPlaing = false
     
     //MARK: - init
     
-    init(player: Player) {
+    init(player: Player, serverDataController: ServerData) {
         self.player = player
+        self.serverDataController = serverDataController
         super.init(nibName: nil, bundle: nil)
         self.player.setDelegate(self)
     }
@@ -132,7 +134,22 @@ class StreamVC: UIViewController, VLCMediaPlayerDelegate {
     }
 
     @objc func handleRespectButton() {
-        let nextViewController = RespectVC()
+        let respectVC = RespectVC()
+        
+        if let buttons = serverDataController.buttons {
+            let btn1 = buttons[0]
+            respectVC.respectButton1 = btn1
+            
+            let btn2 = buttons[1]
+            respectVC.respectButton2 = btn2
+            
+            let btn3 = buttons[2]
+            respectVC.respectButton3 = btn3
+        }
+
+        
+        let nextViewController = respectVC
+        
         if let navigationController = self.navigationController {
                 navigationController.pushViewController(nextViewController, animated: true)
         }

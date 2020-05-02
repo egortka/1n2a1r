@@ -16,8 +16,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
+        let serverData = ServerData(requestUrlString: JSON_REF)
         let navigationController = UINavigationController()
-        let mainView = StreamVC(player: Player())
+        let mainView = StreamVC(player: Player(), serverDataController: serverData)
         
         navigationController.viewControllers = [mainView]
 //        self.window!.rootViewController = navigationController

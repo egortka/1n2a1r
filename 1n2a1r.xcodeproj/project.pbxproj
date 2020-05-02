@@ -18,6 +18,8 @@
 		5136275D22A1AEAD0092B5C1 /* MobileVLCKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 513A427C22A1A568009BFA26 /* MobileVLCKit.framework */; };
 		5147226524236584008F41EC /* Playlist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5147226424236584008F41EC /* Playlist.swift */; };
 		51472267242365A2008F41EC /* Track.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51472266242365A2008F41EC /* Track.swift */; };
+		514A52102459A80A00F9A962 /* ServerData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514A520F2459A80A00F9A962 /* ServerData.swift */; };
+		514A52122459A8BF00F9A962 /* RespectButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514A52112459A8BF00F9A962 /* RespectButton.swift */; };
 		51E601EC243C94EB008E0D4D /* RespectVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51E601EB243C94EB008E0D4D /* RespectVC.swift */; };
 		67BAC660A837047E6EDF412C /* Pods_1n2a1r.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EF898B55DF784393966B1EE /* Pods_1n2a1r.framework */; };
 /* End PBXBuildFile section */
@@ -37,6 +39,8 @@
 		513A427C22A1A568009BFA26 /* MobileVLCKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileVLCKit.framework; path = Pods/MobileVLCKit/MobileVLCKit.framework; sourceTree = "<group>"; };
 		5147226424236584008F41EC /* Playlist.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Playlist.swift; sourceTree = "<group>"; };
 		51472266242365A2008F41EC /* Track.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Track.swift; sourceTree = "<group>"; };
+		514A520F2459A80A00F9A962 /* ServerData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerData.swift; sourceTree = "<group>"; };
+		514A52112459A8BF00F9A962 /* RespectButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RespectButton.swift; sourceTree = "<group>"; };
 		51523B2022D213240097FE63 /* 1n2a1r.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = 1n2a1r.entitlements; sourceTree = "<group>"; };
 		51E601EB243C94EB008E0D4D /* RespectVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RespectVC.swift; sourceTree = "<group>"; };
 		566F4DE7BE9C80125C3A4AB1 /* Pods-1n2a1r.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-1n2a1r.release.xcconfig"; path = "Target Support Files/Pods-1n2a1r/Pods-1n2a1r.release.xcconfig"; sourceTree = "<group>"; };
@@ -98,6 +102,8 @@
 				51472266242365A2008F41EC /* Track.swift */,
 				5147226424236584008F41EC /* Playlist.swift */,
 				511FF74C22AD89A4004BCD3B /* Player.swift */,
+				514A520F2459A80A00F9A962 /* ServerData.swift */,
+				514A52112459A8BF00F9A962 /* RespectButton.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -259,10 +265,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				514A52102459A80A00F9A962 /* ServerData.swift in Sources */,
 				5124441622A14E180021A6D3 /* StreamVC.swift in Sources */,
 				5113F68E22A05E83000A431A /* AppDelegate.swift in Sources */,
 				5113F6B122A067C6000A431A /* Extansions.swift in Sources */,
 				51472267242365A2008F41EC /* Track.swift in Sources */,
+				514A52122459A8BF00F9A962 /* RespectButton.swift in Sources */,
 				51E601EC243C94EB008E0D4D /* RespectVC.swift in Sources */,
 				5147226524236584008F41EC /* Playlist.swift in Sources */,
 				5113F6B322A06834000A431A /* Constants.swift in Sources */,
@@ -399,7 +407,7 @@
 				CODE_SIGN_ENTITLEMENTS = 1n2a1r/1n2a1r.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 4YBD8B784H;
+				DEVELOPMENT_TEAM = ZJDN3NPU78;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -431,7 +439,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = 4YBD8B784H;
+				DEVELOPMENT_TEAM = ZJDN3NPU78;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
